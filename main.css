@@ -1,4 +1,38 @@
 body {
   background-color: yellow;
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  /* align-items: center; */
+}
+
+.main {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.optionsSpace {
+  /* background-color: green; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 30rem;
+}
+
+.cardNumberOption {
+  background-color: white;
+  color: cornflowerblue;
+  height: 8rem;
+  width: 5rem;
+  border-radius: 15px;
+  text-align: center;
+  line-height: 8rem;
+  font-size: 3rem;
+  margin: 1rem;
 }
