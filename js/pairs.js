@@ -1,12 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM content loaded');
 
-  cardNumberOptions = [8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52];
+  cardNumberOptions = [8, 12, 16, 20, 24, 28, 32, 36, 40];
+  colours = ['red', 'yellow', 'green', 'blue', 'white', 'magenta', 'silver', 'dimgray', 'black', 'purple', 'salmon', 'maroon', 'darkorange', 'darkkhaki', 'lime', 'cyan', 'navy', 'mediumpurple', 'deeppink', 'sienna'];
+
+  n = 0;
+  nSoFar = 0;
+  r = 0;
+  c = 0;
+
+  const main = document.querySelector('.main');
 
   showCardNumberOptions();
 
   function showCardNumberOptions() {
-    const main = document.querySelector('.main');
     const optionsSpace = document.createElement('div');
     optionsSpace.className = 'optionsSpace';
     main.appendChild(optionsSpace);
@@ -16,9 +22,76 @@ document.addEventListener('DOMContentLoaded', () => {
       option.textContent = cardNumberOptions[i];
       optionsSpace.appendChild(option);
       option.addEventListener('click', () => {
-        console.log(option.textContent);
+        n = parseInt(option.textContent);
+        startGame();
       })
     }
   }
+
+  function startGame() {
+    main.innerHTML = '';
+
+    // if (n < 17) { r = n/4; }
+    // else if (n < 33) { r = 4; }
+    // else { r = Math.ceil(n/8) }
+    // c = Math.ceil(n/r);
+
+    r = Math.ceil( (n*5/8)**0.5 );
+    c = Math.ceil( n/r );
+
+    const cardsSpace = document.createElement('div');
+    cardsSpace.className = 'cardsSpace';
+    main.appendChild(cardsSpace);
+    // cardsSpace.textContent = n;
+    for (i=0; i<r; i++) {
+      addRowToCardsSpace(cardsSpace, i);
+    }
+  }
+
+  function addRowToCardsSpace(cardsSpace, currentRow) {
+    const newRow = document.createElement('div');
+    newRow.className = 'row';
+    cardsSpace.appendChild(newRow);
+    newRow.style.height = `${100/r}%`;
+    newRow.style.fontSize = `${100/r}vh`
+    newRow.style.lineHeight = '100%';
+    for (j=0; j<c; j++) {
+      nSoFar ++;
+      console.log(nSoFar);
+      if (nSoFar <= n) {
+        addCardSpaceToRow(newRow, j);
+      }
+    }
+  }
+
+  function addCardSpaceToRow(row, j) {
+    const newCardSpace = document.createElement('div');
+    newCardSpace.className = 'cardSpace';
+    // newCardSpace.textContent = j;
+    row.appendChild(newCardSpace);
+    newCardSpace.style.width = `${(5/8)*100/r}%`
+    addCardToCardSpace(newCardSpace);
+  }
+
+  function addCardToCardSpace(cardSpace) {
+    const newCard = document.createElement('div');
+    newCard.className = 'card';
+    cardSpace.appendChild(newCard);
+    newCard.style.height = '95%';
+    newCard.style.width = '90%';
+    // newCard.textContent = '5';
+    newCard.addEventListener('click', addCardColour);
+  }
+
+  function addCardColour() {
+    this.removeEventListener('click', addCardColour);
+    const cardColour = document.createElement('div');
+    cardColour.className = 'cardColour';
+    this.appendChild(cardColour);
+    const randomNumber = Math.floor(Math.random() * colours.length);
+    this.style.backgroundColor = 'black';
+    cardColour.style.backgroundColor = `${colours[randomNumber]}`;
+  }
+
 
 })
