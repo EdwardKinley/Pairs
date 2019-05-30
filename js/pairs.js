@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   nSoFar = 0;
   r = 0;
   c = 0;
-  cardsShowing = 0;
+  nCardsShowing = 0;
   ourColours = [];
+  cardsShowing = [];
 
   const main = document.querySelector('.main');
 
@@ -34,11 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startGame() {
     main.innerHTML = '';
-
-    // if (n < 17) { r = n/4; }
-    // else if (n < 33) { r = 4; }
-    // else { r = Math.ceil(n/8) }
-    // c = Math.ceil(n/r);
 
     r = Math.ceil( (n*5/8)**0.5 );
     c = Math.ceil( n/r );
@@ -70,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function addCardSpaceToRow(row, j) {
     const newCardSpace = document.createElement('div');
     newCardSpace.className = 'cardSpace';
-    // newCardSpace.textContent = j;
     row.appendChild(newCardSpace);
     newCardSpace.style.width = `${(5/8)*100/r}%`
     addCardToCardSpace(newCardSpace);
@@ -88,17 +83,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showCard() {
-    if (cardsShowing <200) {
-      console.log(this.colour);
+    if (nCardsShowing <2) {
       this.removeEventListener('click', showCard);
-      cardsShowing ++;
+      nCardsShowing ++;
       const cardColour = document.createElement('div');
       cardColour.className = 'cardColour';
       this.appendChild(cardColour);
       this.style.backgroundColor = 'black';
       cardColour.style.backgroundColor = `${this.colour}`;
+      cardsShowing.push(this)
+    }
+    if (nCardsShowing == 2) {
+      setTimeout(hideCards, 2000);
     }
   }
+
+  function hideCards() {
+    cardsShowing[0].style.backgroundColor = 'white';
+    cardsShowing[1].style.backgroundColor = 'white';
+    cardsShowing[0].childNodes[0].style.backgroundColor = 'white';
+    cardsShowing[1].childNodes[0].style.backgroundColor = 'white';
+  };
 
 
 })
