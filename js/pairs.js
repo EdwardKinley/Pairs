@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   nSoFar = 0;
   r = 0;
   c = 0;
+  cardsShowing = 0;
 
   const main = document.querySelector('.main');
 
@@ -57,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     newRow.style.lineHeight = '100%';
     for (j=0; j<c; j++) {
       nSoFar ++;
-      console.log(nSoFar);
       if (nSoFar <= n) {
         addCardSpaceToRow(newRow, j);
       }
@@ -84,13 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function addCardColour() {
-    this.removeEventListener('click', addCardColour);
-    const cardColour = document.createElement('div');
-    cardColour.className = 'cardColour';
-    this.appendChild(cardColour);
-    const randomNumber = Math.floor(Math.random() * colours.length);
-    this.style.backgroundColor = 'black';
-    cardColour.style.backgroundColor = `${colours[randomNumber]}`;
+    if (cardsShowing <2) {
+      this.removeEventListener('click', addCardColour);
+      cardsShowing ++;
+      console.log(cardsShowing);
+      const cardColour = document.createElement('div');
+      cardColour.className = 'cardColour';
+      this.appendChild(cardColour);
+      const randomNumber = Math.floor(Math.random() * colours.length);
+      this.style.backgroundColor = 'black';
+      cardColour.style.backgroundColor = `${colours[randomNumber]}`;
+    }
   }
 
 
