@@ -93,19 +93,24 @@ document.addEventListener('DOMContentLoaded', () => {
       cardColour.style.backgroundColor = `${this.colour}`;
       cardsShowing.push(this)
     }
-    console.log('cards showing:', cardsShowing);
     if (cardsShowing.length == 2) {
+      for (i=0; i<cardsToBeFound.length; i++) {
+        cardsToBeFound[i].removeEventListener('click', showCard);
+      }
       if (cardsShowing[0].colour != cardsShowing[1].colour) {
         setTimeout(hideCards, 1000);
+      } else {
+        cardsToBeFound.splice(cardsToBeFound.indexOf(cardsShowing[0]),1);
+        cardsToBeFound.splice(cardsToBeFound.indexOf(cardsShowing[1]),1);
+        cardsShowing = [];
+        makeCardsTurnable();
       }
     }
   }
 
   function hideCards() {
-    console.log(cardsShowing[0].childNodes[0]);
     cardsShowing[0].removeChild(cardsShowing[0].childNodes[0]);
     cardsShowing[1].removeChild(cardsShowing[1].childNodes[0]);
-    console.log(cardsShowing[0].childNodes[0]);
     cardsShowing[0].style.backgroundColor = 'white';
     cardsShowing[1].style.backgroundColor = 'white';
     makeCardsTurnable();
