@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  cardNumberOptions = [8, 12, 16, 20, 24, 28, 32, 36, 40];
-  colours = ['red', 'yellow', 'green', 'blue', 'white', 'magenta', 'silver', 'dimgray', 'black', 'purple', 'salmon', 'maroon', 'darkorange', 'darkkhaki', 'lime', 'cyan', 'navy', 'mediumpurple', 'deeppink', 'sienna'];
+  playerNumberOptions = [1, 2, 3, 4];
+  cardNumberOptions = [8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40];
+  colours = ['red', 'yellow', 'green', 'blue', 'white', 'magenta', 'dimgray', 'black', 'purple', 'salmon', 'maroon', 'darkorange', 'darkkhaki', 'lime', 'cyan', 'navy', 'mediumpurple', 'deeppink', 'sienna', 'silver'];
 
+  numberOfPlayers = 0;
   n = 0;
   nSoFar = 0;
   r = 0;
@@ -17,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   showCardNumberOptions();
 
   function showCardNumberOptions() {
+    const instruction = document.createElement('div');
+    instruction.className = 'instruction';
+    instruction.textContent = 'Select number of cards:';
+    main.appendChild(instruction);
     const optionsSpace = document.createElement('div');
     optionsSpace.className = 'optionsSpace';
     main.appendChild(optionsSpace);
@@ -29,12 +35,34 @@ document.addEventListener('DOMContentLoaded', () => {
         n = parseInt(option.textContent);
         halfColours = colours.splice(0,n/2);
         ourColours = halfColours.concat(halfColours);
+        selectNumberOfPlayers();
+      })
+    }
+  }
+
+  function selectNumberOfPlayers() {
+    main.innerHTML = '';
+    const instruction = document.createElement('div');
+    instruction.className = 'instruction';
+    instruction.textContent = 'Select number of players:';
+    main.appendChild(instruction);
+    const optionsSpace = document.createElement('div');
+    optionsSpace.className = 'optionsSpace';
+    main.appendChild(optionsSpace);
+    for (i=0; i<playerNumberOptions.length; i++) {
+      const option = document.createElement('div');
+      option.className = 'cardNumberOption';
+      option.textContent = playerNumberOptions[i];
+      optionsSpace.appendChild(option);
+      option.addEventListener('click', () => {
+        numberOfPlayers = parseInt(option.textContent);
         startGame();
       })
     }
   }
 
   function startGame() {
+    console.log(numberOfPlayers);
     main.innerHTML = '';
 
     r = Math.ceil( (n*5/8)**0.5 );

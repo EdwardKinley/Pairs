@@ -4,8 +4,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
+  height: 99vh;
+  /* margin: 0; */
 }
 
 .main {
@@ -15,6 +15,11 @@ body {
   align-items: center;
 }
 
+.instruction {
+  color: sienna;
+  font-size: 1.5rem;
+}
+
 .optionsSpace {
   /* background-color: green; */
   display: flex;
@@ -22,7 +27,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
-  max-width: 30rem;
+  max-width: 40rem;
 }
 
 .cardNumberOption {
@@ -37,11 +42,18 @@ body {
   margin: 1rem;
 }
 
+.cardNumberOption:hover {
+  background-color: silver;
+  /* color: maroon; */
+  transform: scale(1.05);
+  transition: 0.2s ease-in;
+}
+
 .cardsSpace {
   background-color: red;
   /* font-size: 5rem; */
-  height: 100vh;
-  width: 100vh;
+  height: 99vh;
+  width: 99vh;
 }
 
 .row {
