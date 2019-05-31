@@ -7,9 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   nSoFar = 0;
   r = 0;
   c = 0;
-  nCardsShowing = 0;
+  cardsShowing = 0;
   ourColours = [];
   cardsShowing = [];
+  cardsToBeFound = [];
 
   const main = document.querySelector('.main');
 
@@ -42,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardsSpace = document.createElement('div');
     cardsSpace.className = 'cardsSpace';
     main.appendChild(cardsSpace);
-    // cardsSpace.textContent = n;
     for (i=0; i<r; i++) {
       addRowToCardsSpace(cardsSpace, i);
     }
@@ -79,13 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
     newCard.style.width = '90%';
     const randomNumber = Math.floor(Math.random() * ourColours.length);
     newCard.colour = ourColours.splice(randomNumber, 1)[0];
+    cardsToBeFound.push(newCard);
     newCard.addEventListener('click', showCard);
   }
 
   function showCard() {
-    if (nCardsShowing <2) {
+    if (cardsShowing.length <2) {
       this.removeEventListener('click', showCard);
-      nCardsShowing ++;
       const cardColour = document.createElement('div');
       cardColour.className = 'cardColour';
       this.appendChild(cardColour);
@@ -93,17 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
       cardColour.style.backgroundColor = `${this.colour}`;
       cardsShowing.push(this)
     }
-    if (nCardsShowing == 2) {
-      setTimeout(hideCards, 2000);
+    console.log('cards showing:', cardsShowing);
+    if (cardsShowing.length == 2) {
+      if (cardsShowing[0].colour != cardsShowing[1].colour) {
+        setTimeout(hideCards, 1000);
+      }
     }
   }
 
   function hideCards() {
+    console.log(cardsShowing[0].childNodes[0]);
+    cardsShowing[0].removeChild(cardsShowing[0].childNodes[0]);
+    cardsShowing[1].removeChild(cardsShowing[1].childNodes[0]);
+    console.log(cardsShowing[0].childNodes[0]);
     cardsShowing[0].style.backgroundColor = 'white';
     cardsShowing[1].style.backgroundColor = 'white';
-    cardsShowing[0].childNodes[0].style.backgroundColor = 'white';
-    cardsShowing[1].childNodes[0].style.backgroundColor = 'white';
+    makeCardsTurnable();
   };
+
+  function makeCardsTurnable() {
+    cardsShowing = [];
+    for (i=0; i<cardsToBeFound.length; i++) {
+      cardsToBeFound[i].addEventListener('click', showCard);
+    }
+  }
 
 
 })
