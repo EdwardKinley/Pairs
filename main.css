@@ -56,7 +56,7 @@ body {
 }
 
 .player {
-  background-color: green;
+  /* background-color: green; */
   text-align: center;
 }
 
@@ -75,7 +75,7 @@ body {
   background-color: yellow;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
 }
 
 .cardSpace {

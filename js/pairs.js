@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   colours = ['red', 'yellow', 'green', 'blue', 'white', 'magenta', 'dimgray', 'black', 'purple', 'salmon', 'maroon', 'darkorange', 'darkkhaki', 'lime', 'cyan', 'navy', 'mediumpurple', 'deeppink', 'sienna', 'silver'];
 
   numberOfPlayers = 0;
-  // players = [];
+  players = [];
+  currentPlayer = 1;
   n = 0;
   nSoFar = 0;
   r = 0;
@@ -77,14 +78,19 @@ document.addEventListener('DOMContentLoaded', () => {
     for (j=0; j<numberOfPlayers; j++) {
       const newPlayer = document.createElement('div');
       newPlayer.className = 'player';
+      newPlayer.id = `player${j+1}`;
       newPlayer.style.height = `${98/(numberOfPlayers+1)}vh`;
       newPlayer.style.fontSize = `${20/(numberOfPlayers+1)}vh`;
+      if (j>0) {
+        newPlayer.style.color = 'grey';
+      }
       if (numberOfPlayers > 1) {
         newPlayer.textContent = `Player ${j+1}`;
       }
       playersSpace.appendChild(newPlayer);
       const playerScore = document.createElement('div');
       playerScore.className = 'playerScore';
+      playerScore.id = `player${j+1}score`;
       playerScore.style.fontSize = `${40/(numberOfPlayers+1)}vh`;
       playerScore.textContent = '0';
       newPlayer.appendChild(playerScore);
@@ -155,14 +161,27 @@ document.addEventListener('DOMContentLoaded', () => {
         cardsToBeFound[i].removeEventListener('click', showCard);
       }
       if (cardsShowing[0].colour != cardsShowing[1].colour) {
+        document.querySelector(`#player${currentPlayer}`).style.color = 'grey';
+        if (currentPlayer == numberOfPlayers) {
+          currentPlayer = 1;
+          document.querySelector(`#player1`).style.color = 'black';
+        } else {
+          currentPlayer ++;
+          setTimeout(makeStyleColorBlackAfterDelay, 1000);
+        }
         setTimeout(hideCards, 1000);
       } else {
         cardsToBeFound.splice(cardsToBeFound.indexOf(cardsShowing[0]),1);
         cardsToBeFound.splice(cardsToBeFound.indexOf(cardsShowing[1]),1);
         cardsShowing = [];
+        document.querySelector(`#player${currentPlayer}score`).textContent ++;
         makeCardsTurnable();
       }
     }
+  }
+
+  function makeStyleColorBlackAfterDelay() {
+    document.querySelector(`#player${currentPlayer}`).style.color = 'black';
   }
 
   function hideCards() {
