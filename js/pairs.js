@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   colours = ['red', 'yellow', 'green', 'blue', 'white', 'magenta', 'dimgray', 'black', 'purple', 'salmon', 'maroon', 'darkorange', 'darkkhaki', 'lime', 'cyan', 'navy', 'mediumpurple', 'deeppink', 'sienna', 'silver'];
 
   numberOfPlayers = 0;
+  // players = [];
   n = 0;
   nSoFar = 0;
   r = 0;
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ourColours = [];
   cardsShowing = [];
   cardsToBeFound = [];
+  numberOfTurns = 0;
 
   const main = document.querySelector('.main');
 
@@ -62,11 +64,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startGame() {
-    console.log(numberOfPlayers);
     main.innerHTML = '';
 
     r = Math.ceil( (n*5/8)**0.5 );
     c = Math.ceil( n/r );
+
+    const playersSpace = document.createElement('div');
+    playersSpace.className = 'playersSpace';
+    main.style.flexDirection = 'row';
+    main.appendChild(playersSpace);
+
+    for (j=0; j<numberOfPlayers; j++) {
+      const newPlayer = document.createElement('div');
+      newPlayer.className = 'player';
+      newPlayer.style.height = `${98/(numberOfPlayers+1)}vh`;
+      newPlayer.style.fontSize = `${20/(numberOfPlayers+1)}vh`;
+      if (numberOfPlayers > 1) {
+        newPlayer.textContent = `Player ${j+1}`;
+      }
+      playersSpace.appendChild(newPlayer);
+      const playerScore = document.createElement('div');
+      playerScore.className = 'playerScore';
+      playerScore.style.fontSize = `${40/(numberOfPlayers+1)}vh`;
+      playerScore.textContent = '0';
+      newPlayer.appendChild(playerScore);
+    }
+
+    const buttonsSpace = document.createElement('div');
+    buttonsSpace.className = 'player';
+    buttonsSpace.style.height = `${98/(numberOfPlayers+1)}vh`;
+    buttonsSpace.textContent = 'buttons here...';
+    playersSpace.appendChild(buttonsSpace);
 
     const cardsSpace = document.createElement('div');
     cardsSpace.className = 'cardsSpace';
@@ -122,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cardsShowing.push(this)
     }
     if (cardsShowing.length == 2) {
+      numberOfTurns ++;
       for (i=0; i<cardsToBeFound.length; i++) {
         cardsToBeFound[i].removeEventListener('click', showCard);
       }

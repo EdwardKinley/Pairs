@@ -49,6 +49,21 @@ body {
   transition: 0.2s ease-in;
 }
 
+.playersSpace {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.player {
+  background-color: green;
+  text-align: center;
+}
+
+.playerScore {
+  text-align: center;
+}
+
 .cardsSpace {
   background-color: red;
   /* font-size: 5rem; */
