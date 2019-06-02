@@ -65,7 +65,7 @@ body {
 }
 
 .cardsSpace {
-  background-color: red;
+  /* background-color: red; */
   /* font-size: 5rem; */
   height: 99vh;
   width: 99vh;
@@ -80,10 +80,10 @@ body {
 
 .cardSpace {
   background-color: yellow;
-  width: auto;
+  /* width: auto; */
   /* border: 5px solid black; */
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   text-align: center;
   align-items: center;
 }

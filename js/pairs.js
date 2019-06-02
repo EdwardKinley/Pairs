@@ -70,6 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     r = Math.ceil( (n*5/8)**0.5 );
     c = Math.ceil( n/r );
 
+    addPlayersSpace();
+    addButtonsSpace();
+    addCardsSpace();
+  }
+
+  function addPlayersSpace() {
     const playersSpace = document.createElement('div');
     playersSpace.className = 'playersSpace';
     main.style.flexDirection = 'row';
@@ -81,12 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
       newPlayer.id = `player${j+1}`;
       newPlayer.style.height = `${98/(numberOfPlayers+1)}vh`;
       newPlayer.style.fontSize = `${20/(numberOfPlayers+1)}vh`;
-      if (j>0) {
-        newPlayer.style.color = 'grey';
-      }
-      if (numberOfPlayers > 1) {
-        newPlayer.textContent = `Player ${j+1}`;
-      }
+      if (j>0) { newPlayer.style.color = 'grey'; }
+      if (numberOfPlayers > 1) { newPlayer.textContent = `Player ${j+1}`; }
       playersSpace.appendChild(newPlayer);
       const playerScore = document.createElement('div');
       playerScore.className = 'playerScore';
@@ -95,13 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
       playerScore.textContent = '0';
       newPlayer.appendChild(playerScore);
     }
+  }
 
+  function addButtonsSpace() {
+    const playersSpace = document.querySelector('.playersSpace');
     const buttonsSpace = document.createElement('div');
     buttonsSpace.className = 'player';
     buttonsSpace.style.height = `${98/(numberOfPlayers+1)}vh`;
     buttonsSpace.textContent = 'buttons here...';
     playersSpace.appendChild(buttonsSpace);
+  }
 
+  function addCardsSpace() {
     const cardsSpace = document.createElement('div');
     cardsSpace.className = 'cardsSpace';
     main.appendChild(cardsSpace);
@@ -109,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addRowToCardsSpace(cardsSpace, i);
     }
   }
+
 
   function addRowToCardsSpace(cardsSpace, currentRow) {
     const newRow = document.createElement('div');
