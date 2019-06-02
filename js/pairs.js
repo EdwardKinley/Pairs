@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   nSoFar = 0;
   r = 0;
   c = 0;
-  cardsShowing = 0;
   ourColours = [];
   cardsShowing = [];
   cardsToBeFound = [];
@@ -103,9 +102,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const playersSpace = document.querySelector('.playersSpace');
     const buttonsSpace = document.createElement('div');
     buttonsSpace.className = 'player';
+    buttonsSpace.id = 'buttonsSpace';
     buttonsSpace.style.height = `${98/(numberOfPlayers+1)}vh`;
-    buttonsSpace.textContent = 'buttons here...';
     playersSpace.appendChild(buttonsSpace);
+
+    const anotherButton = document.createElement('button');
+    anotherButton.textContent = 'Another';
+    anotherButton.style.fontSize = `${12/(numberOfPlayers+1)}vh`;
+    buttonsSpace.appendChild(anotherButton);
+    anotherButton.addEventListener('click', () => {
+      for (i=0; i<numberOfPlayers; i++) {
+        document.querySelector(`#player${i+1}`).score = 0;
+        document.querySelector(`#player${i+1}score`).textContent = '0';
+      }
+      nSoFar = 0;
+      cardsShowing = 0;
+      cardsShowing = [];
+      cardsToBeFound = [];
+      numberOfTurns = 0;
+      replaceCardsSpace();
+    })
+
+    const newGameButton = document.createElement('button');
+    newGameButton.textContent = 'New';
+    newGameButton.style.fontSize = `${12/(numberOfPlayers+1)}vh`;
+    buttonsSpace.appendChild(newGameButton);
+    newGameButton.addEventListener('click', () => {
+      console.log('new game starting...');
+      location.reload();
+    })
+  }
+
+  function replaceCardsSpace() {
+    const cardsSpace = document.querySelector('.cardsSpace');
+    cardsSpace.innerHTML = '';
+    colours = ['red', 'yellow', 'green', 'blue', 'white', 'magenta', 'dimgray', 'black', 'purple', 'salmon', 'maroon', 'darkorange', 'darkkhaki', 'lime', 'cyan', 'navy', 'mediumpurple', 'deeppink', 'sienna', 'silver'];
+    halfColours = colours.splice(0,n/2);
+    ourColours = halfColours.concat(halfColours);
+    for (k=0; k<r; k++) {
+      addRowToCardsSpace(cardsSpace, k);
+    }
   }
 
   function addCardsSpace() {
@@ -116,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
       addRowToCardsSpace(cardsSpace, i);
     }
   }
-
 
   function addRowToCardsSpace(cardsSpace, currentRow) {
     const newRow = document.createElement('div');
@@ -172,11 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`#player${currentPlayer}`).style.color = 'grey';
         if (currentPlayer == numberOfPlayers) {
           currentPlayer = 1;
-          document.querySelector(`#player1`).style.color = 'black';
+          // document.querySelector(`#player1`).style.color = 'black';
         } else {
           currentPlayer ++;
-          setTimeout(makeStyleColorBlackAfterDelay, 1000);
         }
+        setTimeout(makeStyleColorBlackAfterDelay, 1000);
         setTimeout(hideCards, 1000);
       } else {
         cardsToBeFound.splice(cardsToBeFound.indexOf(cardsShowing[0]),1);
@@ -206,6 +241,5 @@ document.addEventListener('DOMContentLoaded', () => {
       cardsToBeFound[i].addEventListener('click', showCard);
     }
   }
-
 
 })
