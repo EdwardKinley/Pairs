@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     addPlayersSpace();
     addButtonsSpace();
     addCardsSpace();
+    if (numberOfPlayers > 1) {
+      document.querySelector(`#player${currentPlayer}name`).style.color = 'black';
+    }
   }
 
   function addPlayersSpace() {
@@ -87,7 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
       newPlayer.style.height = `${98/(numberOfPlayers+1)}vh`;
       newPlayer.style.fontSize = `${20/(numberOfPlayers+1)}vh`;
       if (j>0) { newPlayer.style.color = 'grey'; }
-      if (numberOfPlayers > 1) { newPlayer.textContent = `Player ${j+1}`; }
+
+      if (numberOfPlayers > 1) {
+        const newPlayerName = document.createElement('input');
+        newPlayerName.className = 'playerName';
+        newPlayerName.id = `player${j+1}name`;
+        newPlayerName.style.width = `${120/(numberOfPlayers+1)}vh`;
+        newPlayerName.style.fontSize = `${20/(numberOfPlayers+1)}vh`;
+        newPlayerName.value = `Player ${j+1}`;
+        newPlayer.appendChild(newPlayerName);
+      }
+
       playersSpace.appendChild(newPlayer);
       const playerScore = document.createElement('div');
       playerScore.className = 'playerScore';
@@ -109,6 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const numberOfMovesSpace = document.createElement('div');
     numberOfMovesSpace.id = 'numberOfMovesSpace';
     numberOfMovesSpace.style.color = 'black';
+    if (numberOfPlayers ==1) {
+      numberOfMovesSpace.style.fontSize = `${6/(numberOfPlayers+1)}vh`
+    } else {
+      numberOfMovesSpace.style.fontSize = `${10/(numberOfPlayers+1)}vh`
+    }
     buttonsSpace.appendChild(numberOfMovesSpace);
     numberOfMovesSpace.textContent = 'Total moves: 0';
 
@@ -117,15 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
     anotherButton.style.fontSize = `${12/(numberOfPlayers+1)}vh`;
     buttonsSpace.appendChild(anotherButton);
     anotherButton.addEventListener('click', () => {
-      for (i=0; i<numberOfPlayers; i++) {
-        document.querySelector(`#player${i+1}`).score = 0;
-        document.querySelector(`#player${i+1}score`).textContent = '0';
-      }
       nSoFar = 0;
       cardsShowing = 0;
       cardsShowing = [];
       cardsToBeFound = [];
       numberOfMoves = 0;
+      document.querySelector('#numberOfMovesSpace').textContent = `Total moves: ${numberOfMoves}`;
+      for (i=0; i<numberOfPlayers; i++) {
+        document.querySelector(`#player${i+1}`).score = 0;
+        document.querySelector(`#player${i+1}score`).textContent = '0';
+      }
       replaceCardsSpace();
     })
 
@@ -178,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newCardSpace = document.createElement('div');
     newCardSpace.className = 'cardSpace';
     row.appendChild(newCardSpace);
-    newCardSpace.style.width = `${(5/8)*100/r}%`
+    newCardSpace.style.width = `${(5/8)*100/r}vh`
     addCardToCardSpace(newCardSpace);
   }
 
@@ -212,9 +231,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (cardsShowing[0].colour != cardsShowing[1].colour) {
         document.querySelector(`#player${currentPlayer}`).style.color = 'grey';
+        if (numberOfPlayers > 1) {
+          document.querySelector(`#player${currentPlayer}name`).style.color = 'grey';
+        }
         if (currentPlayer == numberOfPlayers) {
           currentPlayer = 1;
-          // document.querySelector(`#player1`).style.color = 'black';
         } else {
           currentPlayer ++;
         }
@@ -232,6 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function makeStyleColorBlackAfterDelay() {
     document.querySelector(`#player${currentPlayer}`).style.color = 'black';
+    if (numberOfPlayers > 1) {
+      document.querySelector(`#player${currentPlayer}name`).style.color = 'black';
+    }
   }
 
   function hideCards() {

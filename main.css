@@ -5,11 +5,9 @@ body {
   flex-direction: column;
   justify-content: center;
   height: 99vh;
-  /* margin: 0; */
 }
 
 .main {
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +19,6 @@ body {
 }
 
 .optionsSpace {
-  /* background-color: green; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -44,7 +41,6 @@ body {
 
 .cardNumberOption:hover {
   background-color: silver;
-  /* color: maroon; */
   transform: scale(1.05);
   transition: 0.2s ease-in;
 }
@@ -55,8 +51,14 @@ body {
   flex-direction: column;
 }
 
+.playerName {
+  background-color: yellow;
+  color: grey;
+  border: 0;
+  text-align: center;
+}
+
 .player {
-  /* background-color: green; */
   text-align: center;
 }
 
@@ -65,10 +67,7 @@ body {
 }
 
 .cardsSpace {
-  /* background-color: red; */
-  /* font-size: 5rem; */
   height: 99vh;
-  width: 99vh;
   margin-left: 1vw;
 }
 
@@ -81,10 +80,7 @@ body {
 
 .cardSpace {
   background-color: yellow;
-  /* width: auto; */
-  /* border: 5px solid black; */
   display: flex;
-  /* flex-direction: column; */
   text-align: center;
   align-items: center;
 }
@@ -96,7 +92,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* padding: 10px; */
 }
 
 .cardColour {
@@ -114,9 +109,12 @@ body {
 
 button {
   border-radius: 0;
-  /* font-size: 2rem; */
   margin: 0.5vh 0;
   background-color: black;
   color: yellow;
   border: 0;
+}
+
+button:hover {
+  color: white;
 }
