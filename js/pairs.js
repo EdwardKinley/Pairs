@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ourColours = [];
   cardsShowing = [];
   cardsToBeFound = [];
-  numberOfTurns = 0;
+  numberOfMoves = 0;
 
   const main = document.querySelector('.main');
 
@@ -106,6 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
     buttonsSpace.style.height = `${98/(numberOfPlayers+1)}vh`;
     playersSpace.appendChild(buttonsSpace);
 
+    const numberOfMovesSpace = document.createElement('div');
+    numberOfMovesSpace.id = 'numberOfMovesSpace';
+    numberOfMovesSpace.style.color = 'black';
+    buttonsSpace.appendChild(numberOfMovesSpace);
+    numberOfMovesSpace.textContent = 'Total moves: 0';
+
     const anotherButton = document.createElement('button');
     anotherButton.textContent = 'Another';
     anotherButton.style.fontSize = `${12/(numberOfPlayers+1)}vh`;
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cardsShowing = 0;
       cardsShowing = [];
       cardsToBeFound = [];
-      numberOfTurns = 0;
+      numberOfMoves = 0;
       replaceCardsSpace();
     })
 
@@ -199,7 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
       cardsShowing.push(this)
     }
     if (cardsShowing.length == 2) {
-      numberOfTurns ++;
+      numberOfMoves ++;
+      document.querySelector('#numberOfMovesSpace').textContent = `Total moves: ${numberOfMoves}`;
       for (i=0; i<cardsToBeFound.length; i++) {
         cardsToBeFound[i].removeEventListener('click', showCard);
       }
